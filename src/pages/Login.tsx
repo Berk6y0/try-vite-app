@@ -6,15 +6,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormControl, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const loginSchema = z.object({
-  email: z.string().email("Geçerli bir e-posta girin"),
-  password: z.string().min(6, "Şifre en az 6 karakter olmalı"),
+  email: z.string().email(i18n.t('validation.email')),
+  password: z.string().min(6, i18n.t('validation.password_min')),
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
 
-export default function Login() {
+export const Login=() =>{
+  const { t } = useTranslation();
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -25,13 +29,15 @@ export default function Login() {
 
   function onSubmit(values: LoginForm) {
     console.log("Login:", values);
-    // Burada API’ye istek atabilirsin.
+ 
   }
 
   return (
+    
+  
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">{t('login')}</h2>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -40,9 +46,13 @@ export default function Login() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('welcome')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="E-posta" {...field} />
+<Input
+  type="email"
+  placeholder={t('placeholders.email')}
+  {...field}
+/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -54,9 +64,13 @@ export default function Login() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Şifre</FormLabel>
+                  <FormLabel>{t('password')}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Şifre" {...field} />
+<Input
+  type="password"
+  placeholder={t('placeholders.password')}
+  {...field}
+/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -64,11 +78,17 @@ export default function Login() {
             />
 
             <Button type="submit" className="w-full">
-              Giriş Yap
+             {t('login')}
             </Button>
+            
           </form>
         </Form>
+            <Link to="/register" className="text-blue-600 hover:underline">
+             {t('register')}
+          </Link>
       </div>
+      
     </div>
+  
   );
 }

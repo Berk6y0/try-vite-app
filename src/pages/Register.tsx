@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-
+import { LanguageSwitcher } from '../App';
 export const Register = () => {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-50">
+
+    <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
         <form className="space-y-6">
@@ -42,6 +43,8 @@ export const Register = () => {
         </p>
       </div>
     </div>
+   
+    
   );
 };
 

@@ -24,5 +24,8 @@
     "validation.email": "Enter a valid email",
     "validation.password_min": "Password must be at least 6 characters",
     "placeholders.email": "Your email",
-    "placeholders.password": "Your password"
+    "placeholders.password": "Your password",
+    "placeholders.confirm_password": "Confirm your password",
+    "validation.doesnt_match": "Passwords do not match"
+
 }

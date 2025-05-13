@@ -1,24 +1,22 @@
 // src/pages/Login.tsx
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormControl, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import i18n from 'i18next';
+import { useLoginSchema } from "@/schemas/useLoginSchema";
+import type { LoginForm } from "@/schemas/useLoginSchema";
+import { useEffect } from "react";
 
-const loginSchema = z.object({
-  email: z.string().email(i18n.t('validation.email')),
-  password: z.string().min(6, i18n.t('validation.password_min')),
-});
 
-type LoginForm = z.infer<typeof loginSchema>;
 
-export const Login=() =>{
-  const { t } = useTranslation();
+export const Login = () => {
+  const { t ,i18n} = useTranslation();
+  let loginSchema = useLoginSchema();
+
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -27,10 +25,19 @@ export const Login=() =>{
     },
   });
 
-  function onSubmit(values: LoginForm) {
-    console.log("Login:", values);
- 
-  }
+  useEffect(() => {
+    // Mevcut form değerlerini al
+    const currentValues = form.getValues();
+    
+    // Form state'ini sıfırla ve değerleri koru
+    form.reset(currentValues);
+    
+    // Validasyon hatalarını tetikle (isteğe bağlı)
+    if (currentValues.email || currentValues.password) {
+      form.trigger();
+    }
+  }, [i18n.language, form]);
+
 
   return (
     
@@ -40,7 +47,7 @@ export const Login=() =>{
         <h2 className="text-2xl font-bold mb-6 text-center">{t('login')}</h2>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form  key={i18n.language} onSubmit={form.handleSubmit(data => console.log(data))} className="space-y-4">
             <FormField
               control={form.control}
               name="email"

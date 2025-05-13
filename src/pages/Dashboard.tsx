@@ -7,7 +7,7 @@ export const Dashboard = () => {
 const { t } = useTranslation();
   return (
 
-    // Dashboard component
+    
     <>
       
       <div className="flex flex-col items-center justify-center h-screen bg-gray">

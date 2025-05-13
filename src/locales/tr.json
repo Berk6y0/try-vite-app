@@ -25,6 +25,8 @@
   "validation.password_min": "Şifre en az 6 karakter olmalıdır",
   "placeholders.email": "E-posta adresiniz",
   "placeholders.password": "Şifreniz",
-  "placeholders.username": "Kullanıcı adınız" 
+  "placeholders.username": "Kullanıcı adınız",
+  "placeholders.confirm_password": "Şifrenizi onaylayın",
+  "validation.doesnt_match": "Şifreler eşleşmiyor"
 }
  
